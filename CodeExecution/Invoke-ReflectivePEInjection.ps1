@@ -157,6 +157,13 @@ http://clymb3r.wordpress.com/2013/04/06/reflective-dll-injection-with-powershell
 
 Blog on modifying mimikatz for reflective loading: http://clymb3r.wordpress.com/2013/04/09/modifying-mimikatz-to-be-loaded-using-invoke-reflectivedllinjection-ps1/
 Blog on using this script as a backdoor with SQL server: http://www.casaba.com/blog/
+2019.10.22:
+try to change the line:
+$GetProcAddress = $UnsafeNativeMethods.GetMethod('GetProcAddress')
+
+to
+
+$GetProcAddress = $UnsafeNativeMethods.GetMethod('GetProcAddress', [reflection.bindingflags] "Public,Static", $null, [System.Reflection.CallingConventions]::Any, @((New-Object System.Runtime.InteropServices.HandleRef).GetType(), [string]), $null);
 #>
 
 [CmdletBinding()]
